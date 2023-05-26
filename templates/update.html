@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<h1>Update Feedback</h1>
+{% endblock %}
+
+{% block content %}
+<form id="edit-feedback" method="post">
+    {{form.hidden_tag()}}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+
+    <p>
+        {% if field.id == 'title' %}
+            {% set val = feedback.title %}
+        {% elif field.id == 'content' %}
+            {% set val = feedback.content %}
+        {% endif %}
+        {{field.label}}
+        {{field(value=val)}}
+
+        {% for error in field.errors %}
+            {{error}}
+        {% endfor %}
+    </p>
+    {% endfor %}
+    <button>Submit</button>
+</form>
+{% endblock %}
